@@ -327,7 +327,7 @@
 <footer class="text-muted">
     <div class="container">
         <p class="float-right">
-            <a href="#">Вернуться наверх</a>
+            <a href="{% url 'main:index' %}">Вернуться наверх</a>
         </p>
         <p>Пример альбома &copy; Bootstrap, но, пожалуйста, скачайте и настройте его под себя!!</p>
         <p>Новичок в Bootstrap? <a href="/">Посетите домашнюю страницу</a> или прочтите наше <a
@@ -336,13 +336,9 @@
 </footer>
 
 
-<script src="{% static 'js/jquery-3.5.1.slim.min.js' %}"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+<script src="{% static 'js/jquery-3.5.1.slim.min.js' %}"></script>
 <script>window.jQuery || document.write('<script src="{% static 'js/jquery-3.5.1.slim.min.js' %}"><\/script>')</script>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-        crossorigin="anonymous"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
 
 </body>
