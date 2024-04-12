@@ -3,14 +3,7 @@
 {% block content %}
     <section class="jumbotron text-center">
         <div class="container">
-            <h1>Вход в личный кабинет</h1>
-            <p class="lead text-muted">Что-то краткое и ведущее о коллекции ниже - ее содержание, создатель и т.д.
-                Сделайте ее короткой и интересной, но не слишком короткой, чтобы люди просто не пропустили ее
-                полностью.</p>
-            <p>
-                <a href="{% url 'users:password_reset' %}" class="btn btn-primary my-2">Восстановление пароля</a>
-                <a href="{% url 'users:register' %}" class="btn btn-secondary my-2">Регистрация</a>
-            </p>
+            <h1>Регистрация</h1>
         </div>
     </section>
     <form method="post" enctype="multipart/form-data">
@@ -19,7 +12,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        Вход
+                        Регистрация
                     </div>
                     <div class="card-body">
 
@@ -27,7 +20,7 @@
                         {{ form.as_p }}
                         <div class="footer">
                             <button type="submit" class="btn btn-primary">
-                                Войти
+                                Регистрация
                             </button>
                         </div>
 
@@ -37,6 +30,5 @@
 
         </div>
     </form>
-
 
 {% endblock %}
