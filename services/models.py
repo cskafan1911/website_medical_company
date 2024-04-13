@@ -1,13 +1,12 @@
 from django.db import models
 
-from doctors.models import Doctor
 from speciality.models import Speciality
-from users.models import NULLABLE
+from users.models import NULLABLE, Doctor
 
 
 class Service(models.Model):
     """
-    Класс модели услуг.
+    Класс модели услуга.
     """
 
     title = models.CharField(max_length=100, verbose_name='Название услуги')

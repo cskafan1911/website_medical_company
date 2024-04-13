@@ -1,0 +1,12 @@
+<li class="nav-item active dropdown">
+    <a class="nav-link dropdown-toggle" href="#"
+       id="navbarDropdownMenuLink" role="button"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Специализации
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        {% for speciality in speciality_list %}
+            <a class="dropdown-item" href="{% url 'main:index' speciality.pk %}">{{ speciality.speciality_name }}</a>
+        {% endfor %}
+    </div>
+</li>

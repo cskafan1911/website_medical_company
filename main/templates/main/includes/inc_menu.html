@@ -1,0 +1,14 @@
+<li class="nav-item active dropdown">
+    <a class="nav-link dropdown-toggle" href="#"
+       id="navbarDropdownMenuLink" role="button"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Панель управления
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="{% url 'services:service_list' %}">Медицинские услуги</a>
+        <a class="dropdown-item" href="{% url 'speciality:speciality_list' %}">Специализации</a>
+        <a class="dropdown-item" href="#">Врачи</a>
+        <a class="dropdown-item" href="#">Запись к врачу</a>
+
+    </div>
+</li>
