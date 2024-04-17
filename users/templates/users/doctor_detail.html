@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <div class="container marketing">
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1>Информация о специалисте</h1>
+                <p>
+                    <a href="{% url 'users:doctor_update' object.pk %}" class="btn btn-primary my-2">Редактировать</a>
+                    <a href="{% url 'users:doctor_delete' object.pk %}" class="btn btn-secondary my-2">Удалить</a>
+                </p>
+            </div>
+        </section>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">{{ object.user.first_name }} {{ object.user.last_name }}</h2>
+                <p class="lead">Специализация: {{ object.user.doctor.speciality }}</p>
+                <p class="lead">Стаж: {{ object.user.doctor.experience }}</p>
+                <p class="lead">Образование: {{ object.user.doctor.education }}</p>
+            <p class="lead">Образование: {{ object.user.doctor.timetable.day_of_visit }}</p>
+                {% for time in object.user.doctor.timetable.time_of_visit %}
+                    <p class="lead">{{ time }}</p>
+                {% endfor %}
+
+
+            </div>
+            <div class="col-md-5">
+                <img class="card card-img-top"
+                     src="{{ doctor.user.avatar|my_media }}"
+                     alt="Card image cap" width="100%" height="350">
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+    </div>
+{% endblock %}
