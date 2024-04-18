@@ -18,8 +18,8 @@
         </tr>
         </thead>
         <tbody>
-        {% if user.role == 'patient' %}
-        {% for object in object_list %}
+
+        {% for object in appointments_list %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td><a href="{% url 'appointment:appointment_update' object.pk %}">{{ object.date }} {{ object.time }}</a></td>
@@ -29,7 +29,7 @@
                 <td>{{ object.status_of_appointment }}</td>
             </tr>
         {% endfor %}
-        {% endif %}
+
         </tbody>
     </table>
 {% endblock %}

@@ -8,9 +8,24 @@
         <ul class="navbar-nav mr-auto">
 
             {% include 'main/includes/inc_menu.html' %}
-            {% include 'main/includes/inc_moderator_menu.html' %}
-
-            {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                {% include 'main/includes/inc_moderator_menu.html' %}
+            {% endif %}
+            {% if user.is_authenticated and user.role == 'doctor' %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'users:profile_doctor' %}">Профиль <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                {% if user.is_staff %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'appointment:timetable_create' %}">Добавить записи <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                    {% endif %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'users:logout' %}">Выйти <span class="sr-only">(current)</span></a>
+                </li>
+            {% elif user.is_authenticated and user.role == 'patient' %}
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'users:profile' %}">Профиль <span
                             class="sr-only">(current)</span></a>
@@ -24,9 +39,6 @@
                 </li>
             {% endif %}
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
     </div>
 </nav>

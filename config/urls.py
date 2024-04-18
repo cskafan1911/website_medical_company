@@ -9,6 +9,7 @@ urlpatterns = ([
                    path('', include('main.urls', namespace='main')),
                    path('speciality/', include('speciality.urls', namespace='speciality')),
                    path('services/', include('services.urls', namespace='services')),
+                   path('appointment/', include('appointments.urls', namespace='appointment'))
 
                ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
                + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))

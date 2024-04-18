@@ -1,26 +1,38 @@
 {% extends 'main/base.html' %}
+{% load my_tags %}
 {% block content %}
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Эскиз"
-                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c"/>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Эскиз</text>
-            </svg>
+    <div class="container marketing">
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1>Описание специализации</h1>
+                {% if user.is_staff %}
+                    <p>
+                        <a href="{% url 'speciality:speciality_update' speciality.pk %}" class="btn btn-primary my-2">Редактировать</a>
+                        <a href="{% url 'speciality:speciality_delete' speciality.pk %}" class="btn btn-secondary my-2">Удалить</a>
+                    </p>
+                {% endif %}
+            </div>
+        </section>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">{{ object.speciality_name }}</h2>
+                <p class="lead">{{ object.description }}</p>
+            </div>
+            <div class="col-md-5">
+                {% if object.image %}
+                    <img class="card card-img-top"
+                         src="{{ object.image|my_media }}"
+                         alt="Card image cap" width="100%" height="350">
+                {% else %}
+                    <img class="card card-img-top"
+                             src="/media/users_avatar/pngtree-no-avatar-vector-isolated-on-white-background-png-image_4979074.jpg"
+                             alt="Card image cap" width="100%" height="350">
+                {% endif %}
 
-            <div class="card-body">
-                <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже как
-                    естественный ввод к дополнительному контенту. Этот контент немного длиннее.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать
-                        </button>
-                    </div>
-                    <small class="text-muted">9 минут</small>
-                </div>
             </div>
         </div>
+
+        <hr class="featurette-divider">
     </div>
 {% endblock %}

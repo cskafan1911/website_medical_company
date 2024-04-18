@@ -11,4 +11,4 @@ class SpecialityForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Speciality
-        fields = ('speciality_name', 'description',)
+        fields = ('image', 'speciality_name', 'description',)

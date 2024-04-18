@@ -8,6 +8,7 @@ class Speciality(models.Model):
 
     speciality_name = models.CharField(max_length=300, verbose_name='Специальность')
     description = models.TextField(verbose_name='Описание специализации')
+    image = models.ImageField(upload_to='image_speciality/', verbose_name='Изображение', blank=True, null=True)
 
     def __str__(self):
         """

@@ -5,7 +5,8 @@ from django.urls import path, reverse_lazy
 
 from users.apps import UsersConfig
 from users.views import RegisterView, UserConfirmEmailView, EmailConfirmationSentView, EmailConfirmedView, \
-    EmailConfirmationFailedView, ProfilePatientView, ProfileDoctorView
+    EmailConfirmationFailedView, UserUpdateView, ProfileDoctorView, DoctorListView, DoctorDetailView, \
+    DoctorUpdateView, DoctorDeleteView, DoctorCreateView, DoctorAppointmentsView
 
 app_name = UsersConfig.name
 
@@ -13,8 +14,14 @@ urlpatterns = [
     path('', LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
-    path('profile/', ProfilePatientView.as_view(), name='profile'),
+    path('profile/', UserUpdateView.as_view(), name='profile'),
     path('profile/doctor/', ProfileDoctorView.as_view(), name='profile_doctor'),
+    path('profile/doctor/appointments/<int:pk>/', DoctorAppointmentsView.as_view(), name='appointments'),
+    path('doctor/create/', DoctorCreateView.as_view(), name='doctor_create'),
+    path('doctor/info/<int:pk>/', DoctorDetailView.as_view(), name='doctor_info'),
+    path('doctor/update/<int:pk>/', DoctorUpdateView.as_view(), name='doctor_update'),
+    path('doctor/delete/<int:pk>/', DoctorDeleteView.as_view(), name='doctor_delete'),
+    path('doctors/', DoctorListView.as_view(), name='doctor_list'),
     path('confirm-email/<str:uidb64>/<str:token>', UserConfirmEmailView.as_view(), name='confirm_email'),
     path('email-confirmation-sent/', EmailConfirmationSentView.as_view(), name='email_confirmation_sent'),
     path('email-confirmed/', EmailConfirmedView.as_view(), name='email_confirmed'),

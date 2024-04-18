@@ -4,6 +4,8 @@ from django import forms
 from django.forms import NumberInput
 
 from appointments.models import Appointment, Timetable
+from appointments.services import check_doctor_service, check_timetable_date, check_doctor_timetable_date, \
+    check_appointment_time
 from services.models import Service
 from users.forms import StyleFormMixin
 from users.models import User, Doctor
@@ -23,6 +25,9 @@ class AppointmentForm(StyleFormMixin, forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        """
+        Инициализация класса AppointmentForm.
+        """
         super(AppointmentForm, self).__init__(*args, **kwargs)
         if kwargs['initial']:
             if isinstance(kwargs['initial'].get('service'), Service):
@@ -33,6 +38,9 @@ class AppointmentForm(StyleFormMixin, forms.ModelForm):
                 self.fields['service'].queryset = kwargs['initial'].get('service')
 
     def clean(self):
+        """
+        Метод для проверки заполнения формы.
+        """
         if not self._errors:
             cleaned_data = super(AppointmentForm, self).clean()
             doctor = cleaned_data.get('doctor')
@@ -41,46 +49,23 @@ class AppointmentForm(StyleFormMixin, forms.ModelForm):
             time = cleaned_data.get('time')
             appointments = Appointment.objects.filter(date=date, doctor=doctor, status_of_appointment='WAITING').order_by('date')
             timetable = [day.day_of_visit for day in Timetable.objects.filter(doctor=doctor).order_by('day_of_visit')]
-            start_work = datetime.time(9)
-            end_work = datetime.time(21)
+            start_work = datetime.time(10)
+            end_work = datetime.time(19)
+            all_time = [cursor.time for cursor in appointments.exclude(status_of_appointment='CANCELLED')]
 
-            # # проверка полей doctor и service на совместимость
-            # if doctor.direction != service.direction:
-            #     raise forms.ValidationError('Выбранная услуга не оказывается врачом')
-            #
-            # # проверка даты - дата должна быть не раньше чем завтрашний день
-            # if date < datetime.date.today() + datetime.timedelta(days=1):
-            #     raise forms.ValidationError('Запись доступна только на завтра')
-            #
-            # # проверка расписания врача
-            # if date.weekday() not in timetable:
-            #     raise forms.ValidationError(f'Рабочие дни врача - {get_week_days(timetable)}')
-            #
-            # # проверка поле time - время должно укладываться в рабочие часы
-            # # и быть свободным (время существующей записи + час)
-            # all_time = [cursor.time for cursor in appointments.exclude(status='CN')]
-            # if start_work <= time <= end_work:
-            #     if not all_time or min(all_time) >= datetime.time(start_work.hour + 1):
-            #         next_free_time = start_work
-            #     else:
-            #         next_free_time = datetime.time(start_work.hour + 1)
-            #         for cur_time in all_time:
-            #             if datetime.time(cur_time.hour - 1, cur_time.minute) < next_free_time:
-            #                 next_free_time = datetime.time(cur_time.hour + 1, cur_time.minute)
-            #     if next_free_time >= end_work:
-            #         raise forms.ValidationError('Записи на этот день нет. Выберите другую дату')
-            #     for cur_time in all_time:
-            #         if cur_time <= time < datetime.time(cur_time.hour + 1, cur_time.minute):
-            #             raise forms.ValidationError(f'Время {time.strftime("%H:%M")} '
-            #                                         f'уже занято.Ближайшее свободное время '
-            #                                         f'{next_free_time.strftime("%H:%M")}')
-            # else:
-            #     raise forms.ValidationError(f'Время работы клиники '
-            #                                 f'с {start_work.strftime("%H:%M")} до {end_work.strftime("%H:%M")}')
+            check_doctor_service(doctor, service)
+            check_timetable_date(date)
+            check_doctor_timetable_date(date, timetable)
+            check_appointment_time(all_time, time, start_work, end_work)
+
             return cleaned_data
 
 
 class TimetableForm(forms.ModelForm):
+    """
+    Класс формы для создания модели расписания врача.
+    """
+
     class Meta:
         model = Timetable
         fields = ('doctor', 'day_of_visit',)

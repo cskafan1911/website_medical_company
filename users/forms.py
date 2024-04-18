@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from users.models import User, Patient, Doctor
+from users.models import User, Doctor
 
 
 class StyleFormMixin:
@@ -24,24 +24,42 @@ class UserRegisterForm(StyleFormMixin, UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('avatar', 'phone', 'email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = (
+            'role', 'avatar', 'phone', 'email', 'first_name', 'last_name', 'date_of_birth', 'password1', 'password2',
+        )
 
 
-class PatientProfileForm(StyleFormMixin, UserChangeForm):
+class UserUpdateForm(StyleFormMixin, UserCreationForm):
     """
-    Класс для формы просмотра профиля пациента.
+    Класс для формы редактирования пользователя.
     """
 
     class Meta:
         model = User
-        fields = ('email', 'phone', 'avatar', 'first_name', 'last_name', 'date_of_birth')
+        fields = (
+            'avatar', 'phone', 'email', 'first_name', 'last_name', 'date_of_birth',
+        )
 
 
-class DoctorProfileForm(StyleFormMixin, UserChangeForm):
+class DoctorForm(StyleFormMixin, UserChangeForm):
     """
     Класс для формы просмотра профиля врача.
     """
 
+    def __init__(self, *args, **kwargs):
+        super(DoctorForm, self).__init__(*args, **kwargs)
+        self.fields['user'].queryset = User.objects.filter(role='doctor')
+
     class Meta:
         model = Doctor
-        fields = ('description', 'speciality',)
+        fields = ('description', 'speciality', 'education', 'experience', 'user',)
+
+
+class DoctorProfileForm(StyleFormMixin, UserChangeForm):
+    """
+    Класс для формы своего профиля врача.
+    """
+
+    class Meta:
+        model = Doctor
+        fields = ('description', 'speciality', 'education', 'experience',)

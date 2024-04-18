@@ -5,9 +5,9 @@
             {% csrf_token %}
             <section class="jumbotron text-center">
                 <div class="container">
-                    <h1>Вы уверены что хотите удалить специализацию: {{ object.speciality_name }} ?</h1>
+                    <h1>Вы уверены что хотите удалить услугу: {{ object.title }} ?</h1>
                     <p>
-                        <a href="{% url 'speciality:speciality_info' speciality.pk %}"
+                        <a href="{% url 'services:service_info' object.pk %}"
                            class="btn btn-primary my-2">Отменить</a>
                         <button type="submit" class="btn btn-danger">
                             Удалить
@@ -19,7 +19,7 @@
         <hr class="featurette-divider">
         <div class="row featurette">
             <div class="col-md-7">
-                <h2 class="featurette-heading">{{ object.speciality_name }}</h2>
+                <h2 class="featurette-heading">{{ object.title }}</h2>
                 <p class="lead">{{ object.description }}</p>
             </div>
             <div class="col-md-5">

@@ -9,12 +9,9 @@
                 <section class="jumbotron text-center">
                         <div class="container">
                             <h2>{{ title }}</h2>
-
                         </div>
-
                     </section>
                 <div class="card-body">
-
                     {% csrf_token %}
                     {{ form.as_p }}
                     <div class="footer">
@@ -29,6 +26,4 @@
 
     </div>
 </form>
-
-
 {% endblock %}
