@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <div class="container marketing">
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1>Описание специализации</h1>
+                {% if user.is_staff %}
+                    <p>
+                        <a href="{% url 'speciality:speciality_update' speciality.pk %}" class="btn btn-primary my-2">Редактировать</a>
+                        <a href="{% url 'speciality:speciality_delete' speciality.pk %}" class="btn btn-secondary my-2">Удалить</a>
+                    </p>
+                {% endif %}
+            </div>
+        </section>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">{{ object.speciality_name }}</h2>
+                <p class="lead">{{ object.description }}</p>
+            </div>
+            <div class="col-md-5">
+                {% if object.image %}
+                    <img class="card card-img-top"
+                         src="{{ object.image|my_media }}"
+                         alt="Card image cap" width="100%" height="350">
+                {% else %}
+                    <img class="card card-img-top"
+                             src="/media/users_avatar/pngtree-no-avatar-vector-isolated-on-white-background-png-image_4979074.jpg"
+                             alt="Card image cap" width="100%" height="350">
+                {% endif %}
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>{{ object.title }}</h1>
+        </div>
+    </section>
+    <hr class="featurette-divider">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Запись</th>
+            <th scope="col">Медицинская услуга</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Врач</th>
+            <th scope="col">Статус</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if user.role == 'patient' %}
+        {% for object in object_list %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{% url 'appointment:appointment_update' object.pk %}">{{ object.date }} {{ object.time }}</a></td>
+                <td>{{ object.service }}</td>
+                <td>{{ object.service.price }} руб.</td>
+                <td>{{ object.doctor }}</td>
+                <td>{{ object.status_of_appointment }}</td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

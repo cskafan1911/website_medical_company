@@ -1,0 +1,33 @@
+{% load my_tags %}
+{% if service_list %}
+    {% for service in service_list %}
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">{{ service.title }}</h2>
+                <p class="lead">Специализация: {{ service.speciality }}</p>
+                <p class="lead">Цена: {{ service.price }}</p>
+                <p class="lead">{{ service.description }}</p>
+                <a href="{% url 'services:service_info' service.pk %}" type="button"
+                   class="btn btn-sm btn-outline-secondary">Посмотреть</a>
+
+
+            </div>
+            <div class="col-md-5">
+                {% if service.image %}
+                    <img class="card card-img-top"
+                         src="{{ service.image|my_media }}"
+                         alt="Card image cap" width="100%" height="350">
+                {% else %}
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                         role="img" aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title></title>
+                        <rect width="100%" height="100%" fill="#777"/>
+                        <text x="50%" y="50%" fill="#777" dy=".3em"></text>
+                    </svg>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+<hr class="featurette-divider">

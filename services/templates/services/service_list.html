@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>Наши медицинские услуги</h1>
+            <p class="lead text-muted">Выберите медицинскую услугу и нажмите посмотреть, для перехода к детальной
+                информации об услуге, врачах и записи на прием.</p>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+                {% for service in service_list %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            {% if service.image %}
+                                <img class="card card-img-top"
+                                     src="{{ service.image|my_media }}"
+                                     alt="Card image cap" width="100%" height="350">
+                            {% else %}
+                                <img class="card card-img-top"
+                             src="/media/users_avatar/pngtree-no-avatar-vector-isolated-on-white-background-png-image_4979074.jpg"
+                             alt="Card image cap" width="100%" height="350">
+                            {% endif %}
+
+                            <div class="card-body">
+                                <p class="card-text">{{ service.title }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="{% url 'services:service_info' service.pk %}" type="button"
+                                           class="btn btn-sm btn-outline-secondary">Посмотреть</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

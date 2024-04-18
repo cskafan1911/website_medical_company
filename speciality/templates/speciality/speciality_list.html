@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>Направления диагностики</h1>
+            <p class="lead text-muted">Для выбора медицинской услуги выберите специализацию и нажмите кнопку посмотреть
+                услуги.</p>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+                {% for speciality in speciality_list %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            {% if speciality.image %}
+                                <img class="card card-img-top"
+                                     src="{{ speciality.image|my_media }}"
+                                     alt="Card image cap" width="100%" height="350">
+                            {% else %}
+                                <img class="card card-img-top"
+                             src="/media/users_avatar/pngtree-no-avatar-vector-isolated-on-white-background-png-image_4979074.jpg"
+                             alt="Card image cap" width="100%" height="350">
+                            {% endif %}
+
+                            <div class="card-body">
+                                <p class="card-text">{{ speciality.description }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="{% url 'services:speciality_service' speciality.pk %}" type="button"
+                                           class="btn btn-sm btn-outline-secondary">Посмотреть услуги
+                                        </a>
+                                        <a href="{% url 'speciality:speciality_info' speciality.pk %}" type="button"
+                                           class="btn btn-sm btn-outline-secondary">Инфо
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">9 минут</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+<li class="nav-item active dropdown">
+    <a class="nav-link dropdown-toggle" href="#"
+       id="navbarDropdownMenuLink" role="button"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Панель управления
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="{% url 'services:service_list' %}">Медицинские услуги</a>
+        <a class="dropdown-item" href="{% url 'speciality:speciality_list' %}">Специализации</a>
+        <a class="dropdown-item" href="{% url 'users:doctor_list' %}">Врачи</a>
+        <a class="dropdown-item" href="{% url 'appointment:timetable_list' %}">Расписание врачей</a>
+
+        {% if user.is_authenticated and user.role == 'patient' %}
+            <a class="dropdown-item" href="{% url 'appointment:appointment_create' %}">Запись к врачу</a>
+        {% endif %}
+
+    </div>
+</li>

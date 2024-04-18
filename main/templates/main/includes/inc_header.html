@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="{% url 'main:index' %}">Medical Company</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+
+            {% include 'main/includes/inc_menu.html' %}
+            {% if user.is_staff %}
+                {% include 'main/includes/inc_moderator_menu.html' %}
+            {% endif %}
+            {% if user.is_authenticated and user.role == 'doctor' %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'users:profile_doctor' %}">Профиль <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                {% if user.is_staff %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'appointment:timetable_create' %}">Добавить записи <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                    {% endif %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'users:logout' %}">Выйти <span class="sr-only">(current)</span></a>
+                </li>
+            {% elif user.is_authenticated and user.role == 'patient' %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'users:profile' %}">Профиль <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'users:logout' %}">Выйти <span class="sr-only">(current)</span></a>
+                </li>
+            {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'users:login' %}">Войти <span class="sr-only">(current)</span></a>
+                </li>
+            {% endif %}
+        </ul>
+
+    </div>
+</nav>

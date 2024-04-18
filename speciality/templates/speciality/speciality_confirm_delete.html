@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="container marketing">
+        <form method="post">
+            {% csrf_token %}
+            <section class="jumbotron text-center">
+                <div class="container">
+                    <h1>Вы уверены что хотите удалить специализацию: {{ object.speciality_name }} ?</h1>
+                    <p>
+                        <a href="{% url 'speciality:speciality_info' speciality.pk %}"
+                           class="btn btn-primary my-2">Отменить</a>
+                        <button type="submit" class="btn btn-danger">
+                            Удалить
+                        </button>
+                    </p>
+                </div>
+            </section>
+        </form>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">{{ object.speciality_name }}</h2>
+                <p class="lead">{{ object.description }}</p>
+            </div>
+            <div class="col-md-5">
+                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+                     height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#eee"/>
+                    <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+                </svg>
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+    </div>
+{% endblock %}

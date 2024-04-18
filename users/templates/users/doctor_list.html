@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>Все врачи</h1>
+            <p class="lead text-muted">Выберите врача и нажмите на кнопку для получения подробной информации о
+                специалисте</p>
+            <a class="btn btn-secondary" href="{% url 'appointment:timetable_list' %}">Расписание врачей &raquo;</a>
+        </div>
+    </section>
+    <div class="container marketing">
+        <div class="row">
+            {% for doctor in doctors_list %}
+                <div class="col-lg-4">
+                    {% if doctor.user.avatar %}
+                        <img class="card card-img-top"
+                             src="{{ doctor.user.avatar|my_media }}"
+                             alt="Card image cap" width="100%" height="350">
+                    {% else %}
+                        <img class="card card-img-top"
+                             src="/media/users_avatar/pngtree-no-avatar-vector-isolated-on-white-background-png-image_4979074.jpg"
+                             alt="Card image cap" width="100%" height="350">
+                        {#                        <svg class="bd-placeholder-img rounded-circle" width="140" height="140"#}
+                        {#                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"#}
+                        {#                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>#}
+                        {#                            <rect width="100%" height="100%" fill="#777"></rect>#}
+                        {#                            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>#}
+                        {#                        </svg>#}
+                    {% endif %}
+
+                    <h2>{{ doctor.user.first_name }}</h2>
+                    <h2>{{ doctor.user.last_name }}</h2>
+                    <p>{{ doctor.description }}</p>
+                    <p>Специализация: {{ doctor.speciality.speciality_name }}</p>
+                    <p>Стаж: {{ doctor.experience }}</p>
+                    <p><a class="btn btn-secondary" href="{% url 'users:doctor_info' doctor.pk %}">О враче &raquo;</a>
+                    </p>
+                </div><!-- /.col-lg-4 -->
+            {% endfor %}
+        </div><!-- /.row -->
+    </div>
+{% endblock %}

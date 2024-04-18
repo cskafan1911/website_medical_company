@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>Вход в личный кабинет</h1>
+            <p class="lead text-muted">Если вы зарегистрированы, введите ниже почту и пароль пользователя.</p>
+            <p>
+                <a href="{% url 'users:password_reset' %}" class="btn btn-primary my-2">Восстановление пароля</a>
+                <a href="{% url 'users:register' %}" class="btn btn-secondary my-2">Регистрация</a>
+            </p>
+        </div>
+    </section>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        Вход
+                    </div>
+                    <div class="card-body">
+
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="footer">
+                            <button type="submit" class="btn btn-primary">
+                                Войти
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+{% endblock %}

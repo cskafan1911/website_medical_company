@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <div class="container marketing">
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1>{{ object.title }}</h1>
+                {% if user.is_staff %}
+                    <p>
+                        <a href="{% url 'services:service_update' object.pk %}"
+                           class="btn btn-primary my-2">Редактировать</a>
+                        <a href="{% url 'services:service_delete' object.pk %}"
+                           class="btn btn-secondary my-2">Удалить</a>
+                    </p>
+                {% endif %}
+            </div>
+        </section>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">{{ object.title }}<span
+                        class="text-muted"> (специализация - {{ object.speciality }})</span></h2>
+                <p class="lead">{{ object.description }}</p>
+                <hr class="featurette-divider">
+                <div class="container marketing">
+                    <div class="row">
+                        {% for doctor in doctors %}
+                            <div class="col-lg-4">
+                                <h3>{{ doctor.user.first_name }}</h3>
+                                <h3>{{ doctor.user.last_name }}</h3>
+                                <p>Стаж: {{ doctor.experience }}</p>
+                                <p><a class="btn btn-secondary" href="{% url 'users:doctor_info' doctor.pk %}">О враче
+                                    &raquo;</a></p>
+                            </div><!-- /.col-lg-4 -->
+                        {% endfor %}
+                    </div><!-- /.row -->
+                </div>
+
+
+            </div>
+            <div class="col-md-5">
+                {% if service.image %}
+                    <img class="card card-img-top"
+                         src="{{ service.image|my_media }}"
+                         alt="Card image cap" width="100%" height="350">
+                {% else %}
+                    <img class="card card-img-top"
+                             src="/media/users_avatar/pngtree-no-avatar-vector-isolated-on-white-background-png-image_4979074.jpg"
+                             alt="Card image cap" width="100%" height="350">
+                {% endif %}
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+    </div>
+{% endblock %}

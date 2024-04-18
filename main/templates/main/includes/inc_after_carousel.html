@@ -1,0 +1,27 @@
+{% load my_tags %}
+<div class="row">
+    {% if doctors %}
+        {% for doctor in doctors %}
+            <div class="col-lg-4">
+                {% if doctor.user.avatar %}
+                    <img class="card card-img-top"
+                         src="{{ doctor.user.avatar|my_media }}"
+                         alt="Card image cap" width="100%" height="350">
+                {% else %}
+                    <img class="card card-img-top"
+                         src="/media/users_avatar/pngtree-no-avatar-vector-isolated-on-white-background-png-image_4979074.jpg"
+                         alt="Card image cap" width="100%" height="350">
+                {% endif %}
+
+                <h2>{{ doctor.user.first_name }} {{ doctor.user.first_name }}</h2>
+                <p>{{ doctor.description }}</p>
+                <p>Специализация: {{ doctor.speciality.speciality_name }}</p>
+                <p>Стаж: {{ doctor.experience }}</p>
+                <p><a class="btn btn-secondary" href="{% url 'users:doctor_info' doctor.pk %}">О враче &raquo;</a>
+                </p>
+
+            </div><!-- /.col-lg-4 -->
+
+        {% endfor %}
+    {% endif %}
+</div><!-- /.row -->
