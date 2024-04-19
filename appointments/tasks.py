@@ -8,7 +8,7 @@ from appointments.models import Appointment
 @shared_task
 def check_status_appointment():
     """Проверка даты записи, находящихся в ожидании"""
-    active_appointments = Appointment.objects.filter(status='WAITING')
+    active_appointments = Appointment.objects.filter(status_of_appointment='WAITING')
 
     for appointment in active_appointments:
 
