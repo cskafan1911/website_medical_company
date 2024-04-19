@@ -24,7 +24,17 @@
 <span class="stack" style="background: #660000;">ORM</span> 
 <span class="stack" style="background: #660000;">Docker</span> 
 
+------------------------
+## Настройки файла .env
 
+POSTGRES_USER=имя пользователя postgresql
+POSTGRES_PASSWORD=пароль пользователя postgresql
+POSTGRES_DB=имя базы данных для проекта
+POSTGRES_HOST=<имя контейнера с базой> в случае докера
+POSTGRES_PORT=порт для базы postgresql
+SECRET_KEY=секретный ключ Django
+REDIS_HOST=<имя контейнера с базой> из докера
+REDIS_PORT=порт для redis
 
 ------------------------
 
