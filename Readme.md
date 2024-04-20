@@ -84,7 +84,7 @@ REDIS_PORT=порт для redis
     - date - дата оказания услуги
     - time - время оказания услуги
     - data_created - дата и время создания заказа (*default: now*)
-    - status_of_appointment - статус заказа, (Waiting, COMPLETED, CANCELLED)
+    - status_of_appointment - статус заказа, (WAITING, COMPLETED, CANCELLED)
     - price - стоимость услуги
 ------------------------------------   
 ## Регистрация нового пользователя
