@@ -25,6 +25,10 @@ POSTGRES_PORT=порт для базы postgresql
 SECRET_KEY=секретный ключ Django
 REDIS_HOST=<имя контейнера с базой> из докера
 REDIS_PORT=порт для redis
+ADMIN_EMAIL=почта суперпользователя
+ADMIN_PASSWORD=пароль суперпользователя
+ADMIN_FIRST_NAME=имя суперпользователя
+ADMIN_LAST_NAME=фамилия суперпользователя
 
 ------------------------
 
