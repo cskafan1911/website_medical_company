@@ -1,6 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
-from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, UpdateView
 
@@ -63,6 +62,10 @@ class AppointmentCreateView(LoginRequiredMixin, CreateView):
 
 
 class AppointmentUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Класс для редактирования записи к врачу.
+    """
+
     model = Appointment
     form_class = AppointmentForm
     extra_context = {
@@ -108,12 +111,13 @@ class AppointmentListView(ListView):
         return queryset
 
 
-class TimetableCreateView(CreateView):
+class TimetableCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Класс для создания расписания врача.
     """
 
     model = Timetable
+    permission_required = 'appointments.add_timetable'
     form_class = TimetableForm
     success_url = reverse_lazy('services:service_list')
 

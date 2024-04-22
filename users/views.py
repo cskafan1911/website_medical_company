@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
@@ -10,7 +11,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DetailView, DeleteView
 
-from appointments.models import Timetable, Appointment
+from appointments.models import Appointment
 from users.forms import UserRegisterForm, DoctorForm, UserUpdateForm, DoctorProfileForm
 from users.models import User, Doctor
 
@@ -185,36 +186,39 @@ class DoctorDetailView(DetailView):
     model = Doctor
 
 
-class DoctorUpdateView(UpdateView):
+class DoctorUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
     Класс для редактирования объекта врач.
     """
 
     model = Doctor
     form_class = DoctorForm
+    permission_required = 'users.change_doctor'
     success_url = reverse_lazy('users:doctor_list')
     extra_context = {
         'title': 'Заполните форму для редактирования информации о враче'
     }
 
 
-class DoctorCreateView(CreateView):
+class DoctorCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Класс для добавления зарегистрированного пользователя в объект врач.
     """
 
     model = Doctor
     form_class = DoctorForm
+    permission_required = 'users.add_doctor'
     success_url = reverse_lazy('users:doctor_list')
     extra_context = {
         'title': 'Заполните форму для добавления врача'
     }
 
 
-class DoctorDeleteView(DeleteView):
+class DoctorDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     Класс для удаления объекта врач.
     """
 
     model = Doctor
+    permission_required = 'users.delete_doctor'
     success_url = reverse_lazy('users:doctor_list')

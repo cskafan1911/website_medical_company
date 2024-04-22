@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -73,12 +73,13 @@ class SpecialityServiceListView(ListView):
         return context_data
 
 
-class ServiceCreateView(CreateView):
+class ServiceCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Класс для создания объекта Услуга.
     """
 
     model = Service
+    permission_required = 'services.add_service'
     form_class = ServiceForm
     success_url = reverse_lazy('services:service_list')
     extra_context = {
@@ -86,12 +87,13 @@ class ServiceCreateView(CreateView):
     }
 
 
-class ServiceUpdateView(UpdateView):
+class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
     Класс для редактирования объекта услуга.
     """
 
     model = Service
+    permission_required = 'services.change_service'
     form_class = ServiceForm
     success_url = reverse_lazy('services:service_list')
     extra_context = {
@@ -99,10 +101,11 @@ class ServiceUpdateView(UpdateView):
     }
 
 
-class ServiceDeleteView(DeleteView):
+class ServiceDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     Класс для удаления объекта услуга.
     """
 
     model = Service
+    permission_required = 'services.delete_service'
     success_url = reverse_lazy('services:service_list')

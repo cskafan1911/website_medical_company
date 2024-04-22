@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="card">
+                    <section class="jumbotron text-center">
+                        <div class="container">
+                            <h1>{{ title }}</h1>
+                            <p>
+                                {% if user.is_superuser %}
+                                 <h1>Профиль администратора</h1>
+                                {% elif user.role == 'doctor' %}
+                                    <a href="{% url 'users:appointments' user.pk %}" class="btn btn-secondary my-2">Мои
+                                        записи</a>
+                                {% elif user.role == 'patient' %}
+                                    <a href="{% url 'appointment:appointment_list' %}" class="btn btn-secondary my-2">Мои
+                                        записи</a>
+
+                                    <a href="{% url 'appointment:appointment_create' %}" class="btn btn-secondary my-2">Записаться
+                                        к врачу</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </section>
+                    <div class="card-body">
+
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="footer">
+                            <button type="submit" class="btn btn-primary">
+                                Сохранить
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+{% endblock %}
