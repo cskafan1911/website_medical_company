@@ -77,12 +77,12 @@ class AppointmentUpdateView(LoginRequiredMixin, UpdateView):
         Метод для ограничения прав доступа к объекту запись к врачу.
         """
         self.object = super().get_object(queryset)
+        if self.object.user == self.request.user:
+            return self.object
         if self.request.user.is_superuser or self.object.doctor == self.request.user.doctor:
             return self.object
         if self.object.user != self.request.user or self.object.doctor != self.request.user:
             raise Http404('Нет прав доступа')
-        if self.object.user == self.request.user:
-            return self.object
 
     def get_success_url(self):
         return reverse('main:index', kwargs={'pk': self.request.user.pk})
