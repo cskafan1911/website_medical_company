@@ -154,7 +154,7 @@ class DoctorAppointmentsView(TemplateView):
         """
         context_data = super().get_context_data(**kwargs)
         doctor = self.request.user
-        doctor_app = Doctor.objects.get(pk=doctor.pk)
+        doctor_app = Doctor.objects.get(user=doctor.pk)
         context_data['appointments_list'] = Appointment.objects.filter(doctor=doctor_app.pk)
 
         return context_data
