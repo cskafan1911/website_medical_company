@@ -15,7 +15,7 @@ ORM
 Docker
 
 ------------------------
-## Настройки файла .env
+## Настройки файла .env (использовать .env.sample)
 
 POSTGRES_USER=имя пользователя postgresql
 POSTGRES_PASSWORD=пароль пользователя postgresql
