@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -43,12 +44,13 @@ class SpecialityDetailView(DetailView):
     model = Speciality
 
 
-class SpecialityCreateView(CreateView):
+class SpecialityCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Класс для создания объекта специализация.
     """
 
     model = Speciality
+    permission_required = 'speciality.add_speciality'
     form_class = SpecialityForm
     success_url = reverse_lazy('speciality:speciality_list')
     extra_context = {
@@ -56,12 +58,13 @@ class SpecialityCreateView(CreateView):
     }
 
 
-class SpecialityUpdateView(UpdateView):
+class SpecialityUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
     Класс для редактирования объекта специализация.
     """
 
     model = Speciality
+    permission_required = 'speciality.change_speciality'
     form_class = SpecialityForm
     success_url = reverse_lazy('speciality:speciality_list')
     extra_context = {
@@ -69,10 +72,11 @@ class SpecialityUpdateView(UpdateView):
     }
 
 
-class SpecialityDeleteView(DeleteView):
+class SpecialityDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     Класс для удаления объекта специализации.
     """
 
     model = Speciality
+    permission_required = 'speciality.delete_speciality'
     success_url = reverse_lazy('speciality:speciality_list')
