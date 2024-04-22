@@ -8,7 +8,7 @@ from appointments.services import check_doctor_service, check_timetable_date, ch
     check_appointment_time
 from services.models import Service
 from users.forms import StyleFormMixin
-from users.models import User, Doctor
+from users.models import Doctor
 
 
 class AppointmentForm(StyleFormMixin, forms.ModelForm):
@@ -47,7 +47,8 @@ class AppointmentForm(StyleFormMixin, forms.ModelForm):
             service = cleaned_data.get('service')
             date = cleaned_data.get('date')
             time = cleaned_data.get('time')
-            appointments = Appointment.objects.filter(date=date, doctor=doctor, status_of_appointment='WAITING').order_by('date')
+            appointments = Appointment.objects.filter(date=date, doctor=doctor,
+                                                      status_of_appointment='WAITING').order_by('date')
             timetable = [day.day_of_visit for day in Timetable.objects.filter(doctor=doctor).order_by('day_of_visit')]
             start_work = datetime.time(10)
             end_work = datetime.time(19)

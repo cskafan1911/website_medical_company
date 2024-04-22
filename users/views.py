@@ -4,7 +4,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes
@@ -12,7 +11,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DetailView, DeleteView
 
-from appointments.models import Timetable, Appointment
+from appointments.models import Appointment
 from users.forms import UserRegisterForm, DoctorForm, UserUpdateForm, DoctorProfileForm
 from users.models import User, Doctor
 

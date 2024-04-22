@@ -1,7 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from speciality.forms import SpecialityForm
 from speciality.models import Speciality
@@ -16,7 +15,7 @@ class SpecialityListView(ListView):
     extra_context = {
         'title': 'Специализации'
     }
-    
+
     def get_queryset(self):
         """
         Метод для получения объектов Специализации.
